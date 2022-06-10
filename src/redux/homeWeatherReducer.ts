@@ -1,12 +1,11 @@
 import axios from "axios";
-import {Dispatch} from "redux";
 import {loadingSetAC} from "./loadingReducer";
 import clearIcon from "../assets/icons/Clear.png"
 import cloudsIcon from "../assets/icons/Clouds.png"
 import rainIcon from "../assets/icons/Rain.png"
 import clearBackground from "../assets/img/ClearBackground.jpg"
 import rainBackground from "../assets/img/RainBackground.png"
-import cloudsBackground from "../assets/img/CloudsBackground.jpg"
+import cloudsBackground from "../assets/img/CloudsBackground.png"
 import {TypedDispatch} from "./store";
 import {searchIP, weatherApi} from "../api/weatherApi";
 
@@ -93,6 +92,7 @@ type HomeCityAndCountryACType = ReturnType<typeof CityAndCountryAC>
 type HomeWeatherStateACType = ReturnType<typeof weatherStateAC>
 
 export const homeWeatherTC = (payload?: any) => (dispatch: TypedDispatch) => {
+    debugger
     if (Object.keys(payload).length === 0) {
         dispatch(loadingSetAC(true))
         searchIP.getIP()

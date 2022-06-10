@@ -4,6 +4,7 @@ import {searchWeatherTC} from "../../redux/weatherReducer";
 import style from "./Form.module.scss"
 import {searchHomeWeatherTC} from "../../redux/homeWeatherReducer";
 import {useTypedDispatch} from "../../redux/store";
+import {Button, TextField} from "@material-ui/core";
 
 type FormikType = {
     search?: string
@@ -40,18 +41,18 @@ const Form = (props:FormType) => {
 
     return <form onSubmit={formik.handleSubmit} className={style.form}>
         <div>
-            <input
+            <TextField
                 type="text"
                 name="search"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.search}
-                className={style.input}
+                // className={style.input}
                 placeholder={"Enter the city"}
             />
-            <button type="submit">
+            <Button type="submit">
                 Search
-            </button>
+            </Button>
             {formik.errors.search ? <div style={{color: "black"}}>{formik.errors.search}</div> : null}
         </div>
     </form>

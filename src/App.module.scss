@@ -38,6 +38,9 @@ $textTitleColor: #292929;
         color: white;
 
       }
+      @media only screen  and(max-width: 500px){
+        justify-content: center;
+      }
     }
 
     .futureForecast {

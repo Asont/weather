@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import style from "./DateTime.module.scss"
-import {useSelector} from "react-redux";
-import {RootReducerType} from "../../redux/store";
+
 
 const DateTime = () => {
     useEffect(() => {

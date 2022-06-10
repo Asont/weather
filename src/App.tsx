@@ -10,9 +10,9 @@ import Spinner from "./component/Spinner/Spinner";
 import containerCommon from "./App.module.scss"
 import style from "./App.module.scss"
 import FutureDays from "./component/FutureDays/FutureDays";
-import Select from "./component/Select/Select";
 import {homeWeatherTC} from "./redux/homeWeatherReducer";
 import Sheduler from "./component/Sheduler/Sheduler";
+import SelectFromApi from "./component/Select/Select";
 
 
 function App() {
@@ -88,7 +88,7 @@ function App() {
                         <DateTime/>
                     </div>
                     <div className={style.date}>
-                        <Select onChangeSelect={onChangeSelect}/>
+                        <SelectFromApi onChangeSelect={onChangeSelect}/>
                         <Form selectAPI={selectAPI}/>
                         <CityAndCountry city={city}/>
                     </div>
