@@ -1,0 +1,23 @@
+.editableSpan {
+  padding-left: 60px;
+  padding-top: 40px;
+  height: 300px;
+  mix-blend-mode: exclusion;
+  input {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: none;
+    padding-right: 10px;
+  }
+
+  .text {
+    padding-left: 10px;
+  }
+
+  p {
+    color: white;
+    display: inline-block;
+  }
+}
+

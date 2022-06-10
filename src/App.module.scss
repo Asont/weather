@@ -1,0 +1,80 @@
+$bgColor: #e7eaf6;
+$bgSecondColor: #f9f9f9;
+$textColor: #999999;
+$textTitleColor: #292929;
+
+
+.projectBlock {
+  background-color: $bgColor;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    border: 1px solid;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: column;
+    background: url("./assets/img/ClearBackground.jpg");
+    background-size: cover;
+
+    .dateTime {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      padding-right: 60px;
+      padding-top: 25px;
+      justify-content: space-between;
+      padding-left: 60px;
+
+      .date {
+        color: white;
+
+      }
+    }
+
+    .futureForecast {
+      padding: 10px;
+      box-sizing: border-box;
+      background: rgba(24, 24, 27, 0.8);
+      display: flex;
+      color: white;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+
+      .todayForecastitem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .todayItem {
+          background: rgba(24, 24, 24, 0.4);
+          padding: 5px;
+          border-radius: 10px;
+        }
+      }
+
+      .weatherForecast {
+        justify-content: space-between;
+        display: flex;
+      }
+      
+      @media only screen  and(max-width: 500px){
+        overflow-y:scroll ;
+        justify-content: start;
+      }
+    }
+
+  }
+
+
+}
