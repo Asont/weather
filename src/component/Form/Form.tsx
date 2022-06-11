@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
-import {searchWeatherTC} from "../../redux/weatherReducer";
+import {searchWeatherTC, WeatherApi} from "../../redux/weatherReducer";
 import style from "./Form.module.scss"
-import {searchHomeWeatherTC} from "../../redux/homeWeatherReducer";
 import {useTypedDispatch} from "../../redux/store";
 import {Button, TextField} from "@material-ui/core";
 
@@ -11,12 +10,14 @@ type FormikType = {
 }
 
 type FormType = {
-    selectAPI:string
+    selectAPI: WeatherApi
 }
 
 const Form = (props:FormType) => {
 
     let dispatch = useTypedDispatch()
+    const [error, setError]=useState(false)
+    const [errorText, setErrorText]=useState(" ")
 
     const formik = useFormik({
         initialValues: {
@@ -25,36 +26,37 @@ const Form = (props:FormType) => {
         validate: (values) => {
             const errors: FormikType = {};
             if (values.search === "") {
-                errors.search = 'Invalid search address'
+                setErrorText ('Empty')
+                setError(true)
+            } else {
+                setError(false)
+                setErrorText(" ")
+                return errors
             }
-            return errors
         },
         onSubmit: values => {
-            if(props.selectAPI==="openWeatherAPI"){
-                dispatch(searchWeatherTC(values.search))}
-            else{
-                dispatch(searchHomeWeatherTC(values.search))
-            }
-            values.search = ""
+                dispatch(searchWeatherTC({city: values.search, api: props.selectAPI}))
+                      values.search = ""
         },
+
     })
 
     return <form onSubmit={formik.handleSubmit} className={style.form}>
-        <div>
             <TextField
+                helperText={errorText}
+                error={error}
+                variant='outlined'
                 type="text"
                 name="search"
+                size = 'small'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.search}
-                // className={style.input}
-                placeholder={"Enter the city"}
+                label={"Enter the city"}
             />
-            <Button type="submit">
+            <Button type="submit" className={style.formButton}>
                 Search
             </Button>
-            {formik.errors.search ? <div style={{color: "black"}}>{formik.errors.search}</div> : null}
-        </div>
     </form>
 
 

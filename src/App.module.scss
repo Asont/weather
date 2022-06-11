@@ -23,7 +23,10 @@ $textTitleColor: #292929;
     flex-direction: column;
     background: url("./assets/img/ClearBackground.jpg");
     background-size: cover;
-
+.date {
+  display: flex;
+  align-items: center;
+}
     .dateTime {
       display: flex;
       align-items: center;
@@ -33,12 +36,18 @@ $textTitleColor: #292929;
       padding-top: 25px;
       justify-content: space-between;
       padding-left: 60px;
-
+      .dateAndTime{
+        display: flex;
+        flex-direction: column;
+      }
       .date {
         color: white;
-
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
       }
-      @media only screen  and(max-width: 500px){
+
+      @media only screen and(max-width: 500px) {
         justify-content: center;
       }
     }
@@ -70,9 +79,9 @@ $textTitleColor: #292929;
         justify-content: space-between;
         display: flex;
       }
-      
-      @media only screen  and(max-width: 500px){
-        overflow-y:scroll ;
+
+      @media only screen and(max-width: 500px) {
+        overflow-y: scroll;
         justify-content: start;
       }
     }

@@ -3,25 +3,42 @@ import {ResponseWeatherType} from "./types/weatherRequsetAPIType";
 import {IPType} from "./types/IPRequestType";
 
 
-export const instanceForIp = axios.create({
-    baseURL:'https://geo.ipify.org/api/v2/country,city?apiKey=at_1mKZqQKPkIu5QZNfjiWRwEUvwmEk6&ipAddress=',
-})
-
-export const instanceForWeather = axios.create({
-    baseURL:'https://api.openweathermap.org/data/2.5/',
-})
-
-
-export const searchIP = {
-    getIP(){
-        return instanceForIp.get<IPType>("")
-    }
+type WeatherAPIArgs = {
+    lat: number
+    lon: number
 }
+
+export const IpInstance = axios.create({
+    baseURL: 'https://ipapi.co/json/',
+})
+
+export const weatherInstance = axios.create({
+    baseURL: 'https://api.openweathermap.org/',
+    params: {
+        appid: '97b3012794b85f4b514439ece20456a1',
+        units: 'metric',
+    }
+})
 
 export const weatherApi = {
-    getWeather(result:any){
-        return instanceForWeather.get<ResponseWeatherType>(`onecall?lat=${result.data.location.lat}&lon=${result.data.location.lng}&units=metric&appid=97b3012794b85f4b514439ece20456a1`)
+    getWeather(args: WeatherAPIArgs) {
+        return weatherInstance.get<ResponseWeatherType>(`data/2.5/onecall`, {
+            params: {
+                ...args,
+            }
+        })
+    },
+    searchLAtAndLonForCity(city: string) {
+        return weatherInstance.get(`geo/1.0/direct`, {
+            params: {
+                q: city,
+                limit: 5,
+
+            }
+        })
+    },
+    getIP() {
+        return axios.get<IPType>("https://ipapi.co/json/")
     }
+
 }
-
-

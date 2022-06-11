@@ -7,16 +7,16 @@ import clearBackground from "../assets/img/ClearBackground.jpg"
 import rainBackground from "../assets/img/RainBackground.png"
 import cloudsBackground from "../assets/img/CloudsBackground.png"
 import {TypedDispatch} from "./store";
-import {searchIP, weatherApi} from "../api/weatherApi";
+import { weatherApi} from "../api/weatherApi";
 
-type StateType = {
+export type StateType = {
     city: string,
     country: string,
     temperatureCurrent: number,
     descriptionCurrent: string,
     temperatureFuture: Array<FutureForecastType>
     temperatureIcons: Array<string>
-    descriptions: string[]
+ //   descriptions: string[]
     backgroundsAndDiscriptions: BackgroundsAndDiscriptionsType[]
 }
 export type FutureForecastType = {
@@ -38,7 +38,7 @@ const initialState = {
     temperatureFuture: [],
     temperatureIcons: [clearIcon, cloudsIcon, rainIcon],
     backgroundsAndDiscriptions: [],
-    descriptions: ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"],
+ //   descriptions: ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"],
 }
 
 export type ActionTypeDefaultAPI = DefaultWeatherStateACType | DefaultCityAndCountryACType
@@ -90,53 +90,157 @@ export const CityAndCountryAC = (city: string, country: string) => {
 
 type DefaultCityAndCountryACType = ReturnType<typeof CityAndCountryAC>
 type DefaultWeatherStateACType = ReturnType<typeof weatherStateAC>
+export type RootObject = {
+	lat: number;
+	lon: number;
+	timezone: string;
+	timezone_offset: number;
+	current: RootObjectCurrent;
+	minutely: RootObjectMinutely[];
+	hourly: RootObjectHourly[];
+	daily: RootObjectDaily[];
+}
+export type RootObjectCurrentWeather = {
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
+}
+export type RootObjectCurrent = {
+	dt: number;
+	sunrise: number;
+	sunset: number;
+	temp: number;
+	feels_like: number;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	uvi: number;
+	clouds: number;
+	visibility: number;
+	wind_speed: number;
+	wind_deg: number;
+	weather: RootObjectCurrentWeather[];
+}
+export type RootObjectMinutely = {
+	dt: number;
+	precipitation: number;
+}
+export type RootObjectHourlyWeather = {
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
+}
+export type RootObjectHourly = {
+	dt: number;
+	temp: number;
+	feels_like: number;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	uvi: number;
+	clouds: number;
+	visibility: number;
+	wind_speed: number;
+	wind_deg: number;
+	wind_gust: number;
+	weather: RootObjectHourlyWeather[];
+	pop: number;
+}
+export type RootObjectDailyTemp = {
+	day: number;
+	min: number;
+	max: number;
+	night: number;
+	eve: number;
+	morn: number;
+}
+export type RootObjectDailyFeels_like = {
+	day: number;
+	night: number;
+	eve: number;
+	morn: number;
+}
+export type RootObjectDailyWeather = {
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
+}
+export type RootObjectDaily = {
+	dt: number;
+	sunrise: number;
+	sunset: number;
+	moonrise: number;
+	moonset: number;
+	moon_phase: number;
+	temp: RootObjectDailyTemp;
+	feels_like: RootObjectDailyFeels_like;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	wind_speed: number;
+	wind_deg: number;
+	wind_gust: number;
+	weather: RootObjectDailyWeather[];
+	clouds: number;
+	pop: number;
+	uvi: number;
+}
+export type WeatherApi = 'OpenWeather' | 'AnotherAPI'
+type WeatherPayload = {
+    api: WeatherApi
+    cache: RootObject
+}
 
-export const weatherTC = (payload: any) => (dispatch: TypedDispatch) => {
-    debugger
-    if (Object.keys(payload).length === 0) {
+export const weatherTC = (payload: WeatherPayload) => (dispatch: TypedDispatch) => {
+    if (payload.cache && Object.keys(payload.cache).length === 0) {
         dispatch(loadingSetAC(true))
-        searchIP.getIP()
-            .then((result) => {
-                dispatch(CityAndCountryAC(result.data.location.city, result.data.location.country))
-                sessionStorage.setItem("countryAndCity", JSON.stringify(result.data.location))
-                weatherApi.getWeather(result)
-                    .then((res) => {
-                        dispatch(weatherStateAC(res.data))
-                        sessionStorage.setItem("cache", JSON.stringify(res.data))
-                        dispatch(loadingSetAC(false))
-                    }).catch((error) => {
-                    console.log(error)
-                })
-            }).catch((error) => {
-            console.log(error)
+        weatherApi.getIP()
+            .then(async (result) => {
+                dispatch(CityAndCountryAC(result.data.city, result.data.country_code))
+                sessionStorage.setItem("countryAndCity", JSON.stringify(result.data))
+                try {
+                    const res = payload.api === 'OpenWeather'
+                        ? await weatherApi.getWeather({lat: result.data.latitude, lon: result.data.longitude})
+                        : await weatherApi.getWeather({lat: result.data.latitude, lon: result.data.longitude})
+                    dispatch(weatherStateAC(res.data))
+                    sessionStorage.setItem("cache", JSON.stringify(res.data))
+                    dispatch(loadingSetAC(false))
+                } catch (error: any) {
+                    throw new Error(error)
+                }
+            }).catch((error:any) => {
+            throw new Error(error)
         })
     } else {
         dispatch(loadingSetAC(true))
-        let a = sessionStorage.getItem("cache")
-        let b = sessionStorage.getItem("countryAndCity")
-        if (a != null) {
-            dispatch(weatherStateAC(JSON.parse(a)))
+        let cacheWeather = sessionStorage.getItem("cache")
+        let countryAndCityName = sessionStorage.getItem("countryAndCity")
+        if (cacheWeather != null) {
+            dispatch(weatherStateAC(JSON.parse(cacheWeather)))
         }
-        if (b != null) {
-            let temp = JSON.parse(b)
-            dispatch(CityAndCountryAC(temp.city, temp.country))
+        if (countryAndCityName != null) {
+            let countryAndCityNameInObject = JSON.parse(countryAndCityName)
+            dispatch(CityAndCountryAC(countryAndCityNameInObject.city, countryAndCityNameInObject.country))
         }
         dispatch(loadingSetAC(false))
     }
 }
 
-export const searchWeatherTC = (city: string) => (dispatch: TypedDispatch) => {
-    axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=97b3012794b85f4b514439ece20456a1`)
+export const searchWeatherTC = (args: {city: string, api: WeatherApi}) => (dispatch: TypedDispatch) => {
+    weatherApi.searchLAtAndLonForCity(args.city)
         .then((res) => {
             dispatch(CityAndCountryAC(res.data[0].name, res.data[0].country))
             axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&units=metric&appid=97b3012794b85f4b514439ece20456a1`)
                 .then((result) => {
                     dispatch(weatherStateAC(result.data))
-                }).catch((error) => {
-                console.log(error)
+                }).catch((error:any) => {
+                throw new Error(error)
             })
-        }).catch((error) => {
-        console.log(error)
+        }).catch((error:any) => {
+        throw new Error(error)
     })
 }
 
