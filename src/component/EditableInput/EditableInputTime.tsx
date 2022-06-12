@@ -1,19 +1,18 @@
-import React, {ChangeEvent, useState} from 'react';
-import style from "../Sheduler/Sheduler.module.scss";
+import React, { ChangeEvent, useState } from 'react'
+import style from '../Sheduler/Sheduler.module.scss'
 
 type EditableInputTimeType = {
-    time:string
+    time: string
 }
 
-const EditableInputTime = (props:EditableInputTimeType) => {
-
+const EditableInputTime = (props: EditableInputTimeType) => {
     let [time, setTime] = useState(props.time)
     const [editTime, setEditTime] = useState(false)
 
     const editModeTime = () => {
         setEditTime(true)
     }
-    const viewModeTime = ()=>{
+    const viewModeTime = () => {
         setEditTime(false)
     }
 
@@ -23,12 +22,20 @@ const EditableInputTime = (props:EditableInputTimeType) => {
 
     return (
         <>
-            {editTime ?
-                <input className={style.inputStyle} type="time" value={time} onChange={onClickTimeHandler} autoFocus onBlur={viewModeTime}/>
-                : <p onDoubleClick={editModeTime}>{time}</p>
-            }
+            {editTime ? (
+                <input
+                    className={style.inputStyle}
+                    type="time"
+                    value={time}
+                    onChange={onClickTimeHandler}
+                    autoFocus
+                    onBlur={viewModeTime}
+                />
+            ) : (
+                <p onDoubleClick={editModeTime}>{time}</p>
+            )}
         </>
-    );
-};
+    )
+}
 
 export default EditableInputTime;

@@ -1,19 +1,18 @@
-import React, {ChangeEvent, useState} from 'react';
-import style from "../Sheduler/Sheduler.module.scss";
+import React, { ChangeEvent, useState } from 'react'
+import style from '../Sheduler/Sheduler.module.scss'
 
 type EditableInputTextType = {
-    text:string
+    text: string
 }
 
-const EditableInputText = (props:EditableInputTextType) => {
-
+const EditableInputText = (props: EditableInputTextType) => {
     let [text, setText] = useState(props.text)
     const [editText, setEditText] = useState(false)
 
     const editModeText = () => {
         setEditText(true)
     }
-    const viewModeText = ()=>{
+    const viewModeText = () => {
         setEditText(false)
     }
 
@@ -21,15 +20,24 @@ const EditableInputText = (props:EditableInputTextType) => {
         setText(e.currentTarget.value)
     }
 
-
     return (
         <>
-            {editText ?
-                <input className={style.inputStyle} type="text" value={text} onChange={onClickTextHandler} autoFocus onBlur={viewModeText}/>
-                : <p onDoubleClick={editModeText} className={style.text}>{text}</p>
-            }
+            {editText ? (
+                <input
+                    className={style.inputStyle}
+                    type="text"
+                    value={text}
+                    onChange={onClickTextHandler}
+                    autoFocus
+                    onBlur={viewModeText}
+                />
+            ) : (
+                <p onDoubleClick={editModeText} className={style.text}>
+                    {text}
+                </p>
+            )}
         </>
-    );
-};
+    )
+}
 
 export default EditableInputText;

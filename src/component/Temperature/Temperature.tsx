@@ -1,19 +1,13 @@
-import React from 'react';
-
+import React from 'react'
 
 type TemperatureType = {
-    temp:number
+    temp: number
 }
 
-const Temperature = (props:TemperatureType) => {
-
+const Temperature = (props: TemperatureType) => {
     let t = Math.round(props.temp)
 
-    return (
-        <>
-            {t}
-        </>
-    );
-};
+    return <>{t}</>
+}
 
-export default Temperature;
+export default Temperature

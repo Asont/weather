@@ -23,10 +23,12 @@ $textTitleColor: #292929;
     flex-direction: column;
     background: url("./assets/img/ClearBackground.jpg");
     background-size: cover;
-.date {
-  display: flex;
-  align-items: center;
-}
+
+    .date {
+      display: flex;
+      align-items: center;
+    }
+
     .dateTime {
       display: flex;
       align-items: center;
@@ -36,10 +38,12 @@ $textTitleColor: #292929;
       padding-top: 25px;
       justify-content: space-between;
       padding-left: 60px;
-      .dateAndTime{
+
+      .dateAndTime {
         display: flex;
         flex-direction: column;
       }
+
       .date {
         color: white;
         display: flex;
@@ -62,7 +66,7 @@ $textTitleColor: #292929;
       justify-content: space-around;
       width: 100%;
 
-      .todayForecastitem {
+      .todayForecastItem {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -75,10 +79,6 @@ $textTitleColor: #292929;
         }
       }
 
-      .weatherForecast {
-        justify-content: space-between;
-        display: flex;
-      }
 
       @media only screen and(max-width: 500px) {
         overflow-y: scroll;

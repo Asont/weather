@@ -1,23 +1,18 @@
-import axios from "axios";
-import {ResponseWeatherType} from "./types/weatherRequsetAPIType";
-import {IPType} from "./types/IPRequestType";
-
+import axios from 'axios'
+import { ResponseWeatherType } from './types/weatherRequsetAPIType'
+import { IPType } from './types/IPRequestType'
 
 type WeatherAPIArgs = {
     lat: number
     lon: number
 }
 
-export const IpInstance = axios.create({
-    baseURL: 'https://ipapi.co/json/',
-})
-
 export const weatherInstance = axios.create({
     baseURL: 'https://api.openweathermap.org/',
     params: {
         appid: '97b3012794b85f4b514439ece20456a1',
         units: 'metric',
-    }
+    },
 })
 
 export const weatherApi = {
@@ -25,7 +20,7 @@ export const weatherApi = {
         return weatherInstance.get<ResponseWeatherType>(`data/2.5/onecall`, {
             params: {
                 ...args,
-            }
+            },
         })
     },
     searchLAtAndLonForCity(city: string) {
@@ -33,12 +28,10 @@ export const weatherApi = {
             params: {
                 q: city,
                 limit: 5,
-
-            }
+            },
         })
     },
     getIP() {
-        return axios.get<IPType>("https://ipapi.co/json/")
-    }
-
+        return axios.get<IPType>('https://ipapi.co/json/')
+    },
 }

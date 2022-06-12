@@ -1,28 +1,26 @@
-import React from 'react';
-import DinamicDay from "../DinamicDay/DinamicDay";
-import Temperature from "../Temperature/Temperature";
-import style from "./FutureDays.module.scss"
-import {BackgroundsAndDiscriptionsType} from "../../redux/weatherReducer";
+import React from 'react'
+import DynamicDay from '../DinamicDay/DynamicDay'
+import Temperature from '../Temperature/Temperature'
+import style from './FutureDays.module.scss'
+import { BackgroundsAndDiscriptionsType } from '../../redux/weatherReducer'
 
-
-type FutureDaysType ={
-    imagesAndColorBackground:BackgroundsAndDiscriptionsType[]
-    temperatureNumber:number
-    daysNumber:number
-    descriptor:string
+type FutureDaysType = {
+    imagesAndColorBackground: BackgroundsAndDiscriptionsType[]
+    temperatureNumber: number
+    daysNumber: number
+    descriptor: string
 }
 
-const FutureDays = (props:FutureDaysType) => {
-
-    const searchIcons = (currentDescription: string):string => {
+const FutureDays = (props: FutureDaysType) => {
+    const searchIcons = (currentDescription: string): string => {
         switch (currentDescription) {
-            case "Clear": {
+            case 'Clear': {
                 return props.imagesAndColorBackground[0].icon
             }
-            case "Clouds": {
+            case 'Clouds': {
                 return props.imagesAndColorBackground[1].icon
             }
-            case "Rain": {
+            case 'Rain': {
                 return props.imagesAndColorBackground[2].icon
             }
             default:
@@ -34,11 +32,20 @@ const FutureDays = (props:FutureDaysType) => {
 
     return (
         <div className={style.futureForecastItem}>
-            <div className={style.futuredayItem}><DinamicDay num={props.daysNumber}/></div>
-            <img src={iconForDay} alt={"icon"} style={{width:"50px", height:"50px"}}/>
-            <div><Temperature temp={props.temperatureNumber}/>&#176; C</div>
+            <div className={style.futureDayItem}>
+                <DynamicDay num={props.daysNumber} />
+            </div>
+            <img
+                src={iconForDay}
+                alt={'icon'}
+                style={{ width: '50px', height: '50px' }}
+            />
+            <div>
+                <Temperature temp={props.temperatureNumber} />
+                &#176; C
+            </div>
         </div>
-    );
-};
+    )
+}
 
 export default FutureDays;

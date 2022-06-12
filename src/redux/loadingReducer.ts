@@ -1,27 +1,30 @@
 type LoadingReducerType = {
-    loading:boolean,
+    loading: boolean
 }
 
 let initialState = {
-    loading:false,
+    loading: false,
 }
 
 export type ActionTypeLoading = LoadingSetTypeAC
 
-
-export const loadingReducer = (state:LoadingReducerType=initialState,action:ActionTypeLoading)=>{
-    switch (action.type){
-        case "SET-LOADING":{
-            return {...state, loading:action.loading}
+export const loadingReducer = (
+    state: LoadingReducerType = initialState,
+    action: ActionTypeLoading
+) => {
+    switch (action.type) {
+        case 'SET-LOADING': {
+            return { ...state, loading: action.loading }
         }
-        default:return state
+        default:
+            return state
     }
 }
 
-export const loadingSetAC = (loading:boolean)=>{
+export const loadingSetAC = (loading: boolean) => {
     return {
-        type: "SET-LOADING",
-        loading
+        type: 'SET-LOADING',
+        loading,
     }
 }
 

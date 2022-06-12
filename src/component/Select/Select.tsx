@@ -26,14 +26,14 @@ import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {WeatherApi} from "../../redux/weatherReducer";
 
 type SelectType = {
-    onChangeSelect :(value:WeatherApi)=>void
+    onChangeSelect: (value: WeatherApi) => void
 }
 
-export default function SelectFromApi(props:SelectType) {
+export default function SelectFromApi(props: SelectType) {
 
     const [api, setApi] = React.useState<WeatherApi>("OpenWeather");
 
@@ -44,7 +44,7 @@ export default function SelectFromApi(props:SelectType) {
     };
 
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 , alignItems:'center', margin: "6px 0"}} size="small" >
+        <FormControl sx={{m: 1, minWidth: 120, alignItems: 'center', margin: "6px 0"}} size="small">
             <InputLabel>API</InputLabel>
             <Select
                 value={api}
