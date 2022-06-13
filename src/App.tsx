@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CityAndCountry from './component/CityAndCountry/CityAndCountry'
 import DateTime from './component/DateTime/DateTime'
-import Temperature from './component/Temperature/Temperature'
 import { useSelector } from 'react-redux'
 import {
     BackgroundsAndDiscriptionsType,
@@ -22,6 +21,7 @@ import FutureDays from './component/FutureDays/FutureDays'
 
 import Sheduler from './component/Sheduler/Sheduler'
 import SelectFromApi from './component/Select/Select'
+import TodayTemperature from './component/TodayTemperature/TodayTemperature'
 
 function App() {
     let dispatch = useTypedDispatch()
@@ -64,19 +64,13 @@ function App() {
                 dispatch(weatherTC(JSON.parse(getCacheWeather)))
             }
         }
-    }, [cache, dispatch, selectAPI])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectAPI])
 
-    let temperatureCurrent = useAppSelector(
-        (state) => state.weather.temperatureCurrent
-    )
     let futureTemperature = useAppSelector(
         (state) => state.weather.temperatureFuture
     )
-    let city = useAppSelector((state) => state.weather.city)
     let loading = useAppSelector((state) => state.loading.loading)
-    // const onClickHandler = () => {
-    //     sessionStorage.clear()
-    // }
 
     let backgroundAndIconForMain: BackgroundsAndDiscriptionsType =
         searchBackground(currentDescription)
@@ -108,8 +102,6 @@ function App() {
                     backgroundImage: `url(${backgroundAndIconForMain.image})`,
                 }}
             >
-                {/*<button onClick={onClickHandler}>On</button>*/}
-
                 <div className={style.dateTime}>
                     {loading && <Spinner />}
                     <div className={style.dateAndTime}>
@@ -120,23 +112,14 @@ function App() {
                             <SelectFromApi onChangeSelect={onChangeSelect} />
                             <Form selectAPI={selectAPI} />
                         </div>
-                        <CityAndCountry city={city} />
+                        <CityAndCountry />
                     </div>
                 </div>
                 <Sheduler />
                 <div className={style.futureForecast}>
-                    <div className={style.todayForecastItem}>
-                        <div className={style.todayItem}>Today</div>
-                        <img
-                            src={backgroundAndIconForMain.icon}
-                            alt="weather icon"
-                            style={{ width: '50px', height: '50px' }}
-                        />
-                        <div>
-                            <Temperature temp={temperatureCurrent} />
-                            &#176; C
-                        </div>
-                    </div>
+                    <TodayTemperature
+                        backgroundAndIconForMain={backgroundAndIconForMain}
+                    />
                     {futureWeatherDays}
                 </div>
             </div>

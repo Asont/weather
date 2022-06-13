@@ -35,11 +35,7 @@ const FutureDays = (props: FutureDaysType) => {
             <div className={style.futureDayItem}>
                 <DynamicDay num={props.daysNumber} />
             </div>
-            <img
-                src={iconForDay}
-                alt={'icon'}
-                style={{ width: '50px', height: '50px' }}
-            />
+            <img src={iconForDay} alt={'icon'} />
             <div>
                 <Temperature temp={props.temperatureNumber} />
                 &#176; C

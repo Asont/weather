@@ -1,10 +1,10 @@
-.futureForecastItem {
+.todayForecastItem {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  .futureDayItem {
+  .todayItem {
     background: rgba(24, 24, 24, 0.4);
     padding: 5px;
     border-radius: 10px;

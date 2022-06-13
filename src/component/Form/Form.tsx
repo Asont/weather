@@ -51,7 +51,6 @@ const Form = (props: FormType) => {
                 name="search"
                 size="small"
                 onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
                 value={formik.values.search}
                 label={'Enter the city'}
             />

@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from 'react'
-import style from '../Sheduler/Sheduler.module.scss'
 
 type EditableInputTimeType = {
     time: string
@@ -24,7 +23,7 @@ const EditableInputTime = (props: EditableInputTimeType) => {
         <>
             {editTime ? (
                 <input
-                    className={style.inputStyle}
+                    // className={style.inputStyle}
                     type="time"
                     value={time}
                     onChange={onClickTimeHandler}

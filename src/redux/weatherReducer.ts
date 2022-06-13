@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { loadingSetAC } from './loadingReducer'
 import clearIcon from '../assets/icons/Clear.png'
 import cloudsIcon from '../assets/icons/Clouds.png'
@@ -294,10 +293,8 @@ export const searchWeatherTC =
                 dispatch(
                     CityAndCountryAC(res.data[0].name, res.data[0].country)
                 )
-                axios
-                    .get(
-                        `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&units=metric&appid=97b3012794b85f4b514439ece20456a1`
-                    )
+                weatherApi
+                    .getWeather({ lat: res.data[0].lat, lon: res.data[0].lon })
                     .then((result) => {
                         dispatch(weatherStateAC(result.data))
                     })
