@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import CityAndCountry from './component/CityAndCountry/CityAndCountry'
 import DateTime from './component/DateTime/DateTime'
-import { useSelector } from 'react-redux'
 import {
     BackgroundsAndDiscriptionsType,
     RootObject,
     WeatherApi,
     weatherTC,
 } from './redux/weatherReducer'
-import {
-    RootReducerType,
-    useAppSelector,
-    useTypedDispatch,
-} from './redux/store'
+import { useAppSelector, useTypedDispatch } from './redux/store'
 import Form from './component/Form/Form'
 import Spinner from './component/Spinner/Spinner'
 import containerCommon from './App.module.scss'
 import style from './App.module.scss'
 import FutureDays from './component/FutureDays/FutureDays'
-
 import Sheduler from './component/Sheduler/Sheduler'
 import SelectFromApi from './component/Select/Select'
 import TodayTemperature from './component/TodayTemperature/TodayTemperature'
@@ -29,13 +23,12 @@ function App() {
     const [cache, setCache] = useState<RootObject>({} as RootObject)
     const [selectAPI, setSelectAPI] = useState<WeatherApi>('OpenWeather')
 
-    let currentDescription = useSelector<RootReducerType, string>(
+    let currentDescription = useAppSelector(
         (state) => state.weather.descriptionCurrent
     )
-    const imagesAndColorBackground = useSelector<
-        RootReducerType,
-        Array<BackgroundsAndDiscriptionsType>
-    >((state) => state.weather.backgroundsAndTypesOfWeather)
+    const imagesAndColorBackground = useAppSelector(
+        (state) => state.weather.backgroundsAndTypesOfWeather
+    )
 
     const searchBackground = (
         currentDescription: string

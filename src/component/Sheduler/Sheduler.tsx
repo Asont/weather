@@ -2,14 +2,10 @@ import React from 'react'
 import style from './Sheduler.module.scss'
 import EditableInputTime from '../EditableInput/EditableInputTime'
 import EditableInputText from '../EditableInput/EditableInputText'
-import { useSelector } from 'react-redux'
-import { RootReducerType } from '../../redux/store'
-import { DataType } from '../../redux/shedulerReducer'
+import { useAppSelector } from '../../redux/store'
 
 const Sheduler = () => {
-    const data = useSelector<RootReducerType, Array<DataType>>(
-        (state) => state.sheduler.shedulerData
-    )
+    const data = useAppSelector((state) => state.sheduler.shedulerData)
 
     const newData = data.map((item, index) => {
         return (
@@ -23,4 +19,4 @@ const Sheduler = () => {
     return <div className={style.editableSpan}>{newData}</div>
 }
 
-export default Sheduler;
+export default Sheduler
