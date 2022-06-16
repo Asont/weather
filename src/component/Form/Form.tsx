@@ -53,6 +53,7 @@ const Form = (props: FormType) => {
                 onChange={formik.handleChange}
                 value={formik.values.search}
                 label={'Enter the city'}
+                color="primary"
             />
             <Button type="submit" className={style.formButton}>
                 Search

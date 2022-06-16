@@ -3,8 +3,8 @@ import clearIcon from '../assets/icons/Clear.png'
 import cloudsIcon from '../assets/icons/Clouds.png'
 import rainIcon from '../assets/icons/Rain.png'
 import clearBackground from '../assets/img/ClearBackground.jpg'
-import rainBackground from '../assets/img/RainBackground.png'
-import cloudsBackground from '../assets/img/CloudsBackground.png'
+import rainBackground from '../assets/img/RainBackground.jpg'
+import cloudsBackground from '../assets/img/CloudsBackground.jpg'
 import { TypedDispatch } from './store'
 import { weatherApi } from '../api/weatherApi'
 
@@ -37,7 +37,6 @@ const initialState = {
     temperatureFuture: [],
     temperatureIcons: [clearIcon, cloudsIcon, rainIcon],
     backgroundsAndTypesOfWeather: [],
-    //   descriptions: ["Thunderstorm", "Drizzle", "Rain", "Snow", "Atmosphere", "Clear", "Clouds"],
 }
 
 export type ActionTypeDefaultAPI =
@@ -65,7 +64,7 @@ export const weatherReducer = (
                         color: '#bae8e8',
                         icon: cloudsIcon,
                     },
-                    { image: rainBackground, color: '#5585b5', icon: rainIcon },
+                    { image: rainBackground, color: '#CDCDCD', icon: rainIcon },
                 ],
                 temperatureFuture: [
                     {
