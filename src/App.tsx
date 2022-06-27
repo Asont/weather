@@ -3,7 +3,7 @@ import CityAndCountry from './component/CityAndCountry/CityAndCountry'
 import DateTime from './component/DateTime/DateTime'
 import {
     BackgroundsAndDiscriptionsType,
-    RootObject,
+    ResponseFromOpenWeatherType,
     WeatherApi,
     weatherTC,
 } from './redux/weatherReducer'
@@ -20,7 +20,7 @@ import TodayTemperature from './component/TodayTemperature/TodayTemperature'
 function App() {
     let dispatch = useTypedDispatch()
 
-    const [cache, setCache] = useState<RootObject>({} as RootObject)
+    const [cache, setCache] = useState<ResponseFromOpenWeatherType>({} as ResponseFromOpenWeatherType)
     const [selectAPI, setSelectAPI] = useState<WeatherApi>('OpenWeather')
 
     let currentDescription = useAppSelector(

@@ -102,7 +102,7 @@ export const weatherReducer = (
     }
 }
 
-export const weatherStateAC = (payload: any) => {
+export const weatherStateAC = (payload: ResponseFromOpenWeatherType) => {
     return {
         type: 'SET_WEATHER',
         payload,
@@ -119,7 +119,7 @@ export const CityAndCountryAC = (city: string, country: string) => {
 
 type DefaultCityAndCountryACType = ReturnType<typeof CityAndCountryAC>
 type DefaultWeatherStateACType = ReturnType<typeof weatherStateAC>
-export type RootObject = {
+export type ResponseFromOpenWeatherType = {
     lat: number
     lon: number
     timezone: string
@@ -220,7 +220,7 @@ export type RootObjectDaily = {
 export type WeatherApi = 'OpenWeather' | 'AnotherAPI'
 type WeatherPayload = {
     api: WeatherApi
-    cache: RootObject
+    cache: ResponseFromOpenWeatherType
 }
 
 export const weatherTC =
